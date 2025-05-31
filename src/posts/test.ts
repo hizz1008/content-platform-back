@@ -19,18 +19,23 @@ export class PostsService {
   }
 
   async findAll(): Promise<Post[]> {
-    return await this.postsRepository.find();
+    return await this.postsRepository.find({
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number): Promise<Post> {
+    return await this.postsRepository.findOneOrFail({ where: { id } });
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${updatePostDto.title} post`;
+  async update(id: number, updatePostDto: UpdatePostDto): Promise<Post> {
+    await this.postsRepository.update(id, updatePostDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: number): Promise<void> {
+    await this.postsRepository.delete(id);
   }
 }

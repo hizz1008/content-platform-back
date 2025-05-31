@@ -9,9 +9,7 @@ import {
   Param,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common';
-import { GetPostDto } from './dto/get-post.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -22,8 +20,8 @@ export class PostsController {
   }
 
   @Get()
-  findAll(@Query() getPostDto: GetPostDto) {
-    return this.postsService.findAll(getPostDto);
+  findAll() {
+    return this.postsService.findAll();
   }
 
   @Get(':id')
