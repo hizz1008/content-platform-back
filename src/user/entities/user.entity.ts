@@ -32,4 +32,7 @@ export class User {
 
   @DeleteDateColumn()
   deleted_at: Date;
+
+  @Column({ nullable: true })
+  refreshToken: string;
 }
